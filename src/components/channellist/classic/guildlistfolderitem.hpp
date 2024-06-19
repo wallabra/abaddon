@@ -30,6 +30,7 @@ private:
     void OnMessageCreate(const Message &msg);
     void OnMessageAck(const MessageAckData &data);
     void CheckUnreadStatus();
+    unsigned int GetTotalNotifs();
 
     std::vector<Snowflake> m_guild_ids;
 

@@ -127,3 +127,19 @@ void GuildListFolderItem::CheckUnreadStatus() {
         get_style_context()->remove_class("has-unread");
     }
 }
+
+unsigned int GuildListFolderItem::GetTotalNotifs() {
+    auto &discord = Abaddon::Get().GetDiscordClient();
+    if (!Abaddon::Get().GetSettings().Unreads) return 0;
+
+    unsigned int accum;
+
+    for (auto guild_id : m_guild_ids) {
+        int mentions;
+        if (!discord.IsGuildMuted(guild_id) && discord.GetUnreadStateForGuild(guild_id, mentions)) {
+            accum += mentions;
+        }
+    }
+
+    return accum;
+}
